@@ -1,53 +1,79 @@
-# Task 2: SQL Data Types, Constraints & Table Design
+# 📊 Elevate Labs - SQL Task 2
 
-This project demonstrates the fundamental concepts of SQL table design, including data types, constraints, and table alterations using MySQL.
+Welcome to SQL Task 2 of my Elevate Labs internship! This project demonstrates my understanding of advanced SQL table design, focusing on data types, constraints, and structural modifications to maintain data integrity.
 
-## Project Structure
-- `task2.sql`: The main SQL script containing all commands for database creation, table design, data insertion, and table modifications.
+## 🎯 Task Objective
+The primary goal of this task is to:
+- **Define Schema:** Choose appropriate data types (`INT`, `VARCHAR`, `DATE`) for different fields.
+- **Apply Constraints:** Implement `PRIMARY KEY`, `NOT NULL`, `UNIQUE`, and `CHECK` constraints to ensure robust data validation.
+- **Test Integrity:** Perform valid and invalid data insertions to observe constraint behavior.
+- **Modify Structure:** Use `ALTER TABLE` to add, rename, and drop columns dynamically.
 
-## Prerequisites
-- MySQL Server installed and running.
+## 🛠️ Prerequisites
+To successfully run the scripts in this project, ensure you have the following:
+- **SQL Server:** MySQL, MariaDB, or any compatible SQL engine.
+- **SQL Client:** A command-line interface (CLI) or a graphical tool like MySQL Workbench.
 
-## Features Covered
+## 🏗️ Database Schema
+The project expands upon the `students` table design to enforce strict data rules.
 
-### 1. Database and Table Creation
-- Creation of a database named `task2`.
-- Definition of a `students` table with appropriate data types:
-    - `INT AUTO_INCREMENT`: For unique user IDs.
-    - `VARCHAR`: For strings like name and email.
-    - `DATE`: For date of birth.
+### `students` Table Structure
+| Column Name | Data Type | Constraint | Description |
+| :--- | :--- | :--- | :--- |
+| 🔑 `id` | `INT` | `PRIMARY KEY`, `AUTO_INCREMENT`| Unique identifier for each student |
+| 👤 `name` | `VARCHAR(50)` | `NOT NULL` | Full name of the student |
+| 📧 `email` | `VARCHAR(100)`| `UNIQUE`, `NOT NULL` | Unique email address |
+| 📅 `dob` | `DATE` | `NOT NULL` | Date of birth |
+| 🔢 `age` | `INT` | `CHECK (age > 0)` | Verified positive age |
 
-### 2. SQL Constraints
-Constraints are essential for maintaining data integrity. The following constraints are implemented in the `students` table:
-- **PRIMARY KEY**: Uniquely identifies each student.
-- **NOT NULL**: Ensures mandatory fields (name, email, dob) are not empty.
-- **UNIQUE**: Prevents duplicate email entries.
-- **CHECK**: Validates that the age is a positive value.
+## 📖 How to Use
+Follow these steps to initialize and test the database:
 
-### 3. Data Integrity Demonstration
-The script includes examples of:
-- **Valid Insertions**: Successfully adding correct data.
-- **Invalid Insertions**: Showing how constraints block incorrect data (duplicate emails, null names, or invalid ages).
-
-### 4. Table Alterations
-Demonstrates how to evolve the database schema:
-- **Adding a Column**: Adding a `phone_number` field.
-- **Renaming a Column**: Using `RENAME COLUMN` (MySQL 8+) or `CHANGE` to rename `phone_number` to `mobile_number`.
-- **Dropping a Column**: Permanently removing the `age` column and understanding the consequences of data loss.
-
-## How to Run
-1. Open your MySQL terminal or a GUI like MySQL Workbench.
-2. Execute the commands in `task2.sql`:
+1. **Start Server:** Ensure your SQL server instance is running.
+2. **Connect:** Use your preferred SQL client to connect to the server.
+3. **Execute Script:** Open and run the `task2.sql` file.
    ```sql
-   SOURCE path/to/task2.sql;
+   source path/to/task2.sql;
    ```
-   *Note: Replace `path/to/` with the actual path to the file.*
+4. **Verify:** Check the output to observe constraint successes and failures, as well as the table alterations.
 
-## Constraint Selection Logic
-| Column | Constraint | Reason |
-| :--- | :--- | :--- |
-| `id` | `PRIMARY KEY` | Unique student identification |
-| `name` | `NOT NULL` | Name is mandatory for any record |
-| `email` | `UNIQUE, NOT NULL` | Prevents multiple accounts with the same email |
-| `dob` | `NOT NULL` | Required personal detail for registration |
-| `age` | `CHECK` | Ensures only realistic positive ages are stored |
+## 🔍 Key Operations Included
+The `task2.sql` script includes several essential SQL operations:
+
+### 1. Table Definition with Constraints
+```sql
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    dob DATE NOT NULL,
+    age INT CHECK (age > 0)
+);
+```
+
+### 2. Testing Constraints (Data Integrity)
+```sql
+-- Valid Insert
+INSERT INTO students (name, email, dob, age) VALUES ('Arun Kumar', 'arun@gmail.com', '2003-05-10', 21);
+
+-- Invalid Insert (Fails UNIQUE constraint on email)
+INSERT INTO students (name, email, dob, age) VALUES ('Test User', 'arun@gmail.com', '2000-01-01', 20);
+```
+
+### 3. Table Alterations (`ALTER TABLE`)
+```sql
+-- Add a new column
+ALTER TABLE students ADD phone_number VARCHAR(15);
+
+-- Rename a column
+ALTER TABLE students RENAME COLUMN phone_number TO mobile_number;
+
+-- Drop a column
+ALTER TABLE students DROP COLUMN age;
+```
+
+Tip
+
+When running the script, you will intentionally encounter errors during the invalid data insertion phase. These errors prove that your constraints are working properly to protect the database!
+
+Submitted by: Vijayapandian T | Elevate Labs SQL Internship Task 2
