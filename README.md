@@ -71,9 +71,13 @@ ALTER TABLE students RENAME COLUMN phone_number TO mobile_number;
 -- Drop a column
 ALTER TABLE students DROP COLUMN age;
 ```
+---
 
-Tip
+> [!TIP]
+> When running the script, you will intentionally encounter errors during the invalid data insertion phase. These errors prove that your constraints are working properly to protect the database!
 
-When running the script, you will intentionally encounter errors during the invalid data insertion phase. These errors prove that your constraints are working properly to protect the database!
+---
 
-Submitted by: Vijayapandian T | Elevate Labs SQL Internship Task 2
+<div align="center">
+  Submitted by: <b>Vijayapandian T</b> | Elevate Labs SQL Internship Task 2
+</div>
